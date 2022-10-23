@@ -68,15 +68,6 @@ microk8s helm upgrade --install airflow apache-airflow/airflow --namespace airfl
 ```
 
 ### expose deployment as node port
-You can obtain IP address of your WSL adapter using ipconfig in command prompt
-```
-ipconfig /all
-# Ethernet adapter vEthernet (WSL):
-# ...
-#   IPv4 Address. . . . . . . . . . . : 172.21.144.1(Preferred)
-```
-Look for Ethernet adapter vEthernet (WSL) and note the IP address
-```
 kubectl --namespace airflow expose deployment airflow-webserver --type=NodePort --name airflow-webserver-nodeport
 ```
 Check the node port service:
@@ -85,4 +76,9 @@ kubectl --namespace airflow get service | grep NodePort
 # airflow-webserver-nodeport    NodePort    10.152.183.103   <none>        8080:32700/TCP      3h43m
 ```
 Note the port mapping 8080:<destination> and use WSL IP address and port number to access Airflow web UI.
+You can obtain IP address of your WSL bridge:
+```
+ip addr | grep 172
+# this assumes your IP address of WSL bridge on Windows is 172.x.y.z
+```
 e.g. http://172.21.152.92:32700/
