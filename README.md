@@ -68,6 +68,7 @@ microk8s helm upgrade --install airflow apache-airflow/airflow --namespace airfl
 ```
 
 ### expose deployment as node port
+```
 kubectl --namespace airflow expose deployment airflow-webserver --type=NodePort --name airflow-webserver-nodeport
 ```
 Check the node port service:
